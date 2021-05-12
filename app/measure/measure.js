@@ -50,7 +50,7 @@ angular.module('Measure.Measure', ['ngRoute'])
         userAcceptedDataPolicy: true,
         uploadworkerfile: "/assets/js/ndt7-upload-worker.js",
         downloadworkerfile: "/libraries/ndt7-download-worker.min.js",
-        loadbalancer: new URL('https://locate.measurementlab.net/v2/nearest/ndt/ndt7?country=IT'),
+       // loadbalancer: new URL('https://locate.measurementlab.net/v2/nearest/ndt/ndt7'),
       },
       {
         serverChosen: function (server) {
