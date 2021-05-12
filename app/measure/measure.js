@@ -48,7 +48,7 @@ angular.module('Measure.Measure', ['ngRoute'])
     ndt7.test(
       {
         userAcceptedDataPolicy: true,
-        uploadworkerfile: "https://raw.githubusercontent.com/m-lab/ndt7-js/sandbox-roberto-safari-tests/src/ndt7-upload-worker.js",
+        uploadworkerfile: "/assets/js/ndt7-upload-worker.js",
         downloadworkerfile: "/libraries/ndt7-download-worker.min.js"
       },
       {
