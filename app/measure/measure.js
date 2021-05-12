@@ -21,7 +21,7 @@ angular.module('Measure.Measure', ['ngRoute'])
     var gaugeProgress,
         TIME_EXPECTED = 10;
 
-    if ($scope.privacyConsent !== true || $scope.isSafari ) {
+    if ($scope.privacyConsent !== true) {
       return;
     }
 
@@ -48,7 +48,7 @@ angular.module('Measure.Measure', ['ngRoute'])
     ndt7.test(
       {
         userAcceptedDataPolicy: true,
-        uploadworkerfile: "/libraries/ndt7-upload-worker.min.js",
+        uploadworkerfile: "https://raw.githubusercontent.com/m-lab/ndt7-js/sandbox-roberto-safari-tests/src/ndt7-upload-worker.js",
         downloadworkerfile: "/libraries/ndt7-download-worker.min.js"
       },
       {
