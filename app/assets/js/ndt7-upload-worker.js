@@ -94,7 +94,7 @@ if (typeof WebSocket === 'undefined') {
       // Keep the next 4 messages in the buffer.
       // 4 * 8MB = 32MB is the maximum buffer size, which should be
       // enough to work in any browser.
-      let desiredBuffer = data.length;
+      let desiredBuffer = 6 * data.length;
       let bufferedAmount = sock.bufferedAmount;
   
       // While we would still like to buffer more messages, and we haven't been
@@ -108,7 +108,11 @@ if (typeof WebSocket === 'undefined') {
         // adapt dinamically to fast connections.
         if (data.length < maxMessageSize && data.length < (total - bufferedAmount) / 16) {
           data = new Uint8Array(data.length * 2);
-          desiredBuffer = data.length;
+          // Fill with random data.
+          for (let i = 0; i < data.length; i++) {
+            data[i] = i % 128;
+          }
+          desiredBuffer = 6 * data.length;
         }
         sock.send(data);
         t = now();
