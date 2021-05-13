@@ -83,7 +83,7 @@ if (typeof WebSocket === 'undefined') {
       const maxMessageSize = 8388608; /* = (1<<23) = 8MB */
       const clientMeasurementInterval = 250; // ms
 
-      if (data.length < maxMessageSize && data.length < (total - bufferedAmount) / 16) {
+      if (data.length < maxMessageSize && data.length < (total - sock.bufferedAmount) / 16) {
         data = new Uint8Array(data.length * 2);
       }
 
