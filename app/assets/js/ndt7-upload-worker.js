@@ -87,6 +87,7 @@ if (typeof WebSocket === 'undefined') {
         data = new Uint8Array(data.length * 2);
       }
 
+      const desiredBuffer =  7 * data.length;
       if (sock.bufferedAmount < desiredBuffer) {
         sock.send(data);
         total += data.length
