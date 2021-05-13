@@ -81,43 +81,15 @@ if (typeof WebSocket === 'undefined') {
       }
   
       const maxMessageSize = 8388608; /* = (1<<23) = 8MB */
-      // const nextSizeIncrement =
-      //     (data.length >= maxMessageSize) ? Infinity : 16 * data.length;
-      // if (total >= nextSizeIncrement) {
-      //   // Optional todo: fill this message with randomness.
-      //   data = new Uint8Array(data.length * 2);
-      // }
-  
       const clientMeasurementInterval = 250; // ms
-      const loopEndTime = Math.min(previous + clientMeasurementInterval, end);
-  
-      // Keep the next 4 messages in the buffer.
-      // 4 * 8MB = 32MB is the maximum buffer size, which should be
-      // enough to work in any browser.
-      let desiredBuffer = 6 * data.length;
-      let bufferedAmount = sock.bufferedAmount;
-  
-      // While we would still like to buffer more messages, and we haven't been
-      // running for too long... keep sending.
-      //
-      // The buffering bound prevents us from wasting local memory and the time
-      // bound prevents us from stalling the JS event loop.
-      while (bufferedAmount < desiredBuffer &&
-             t < loopEndTime) {
-        // The message size is doubled every 16 messages sent. This allows to
-        // adapt dinamically to fast connections.
-        if (data.length < maxMessageSize && data.length < (total - bufferedAmount) / 16) {
-          data = new Uint8Array(data.length * 2);
-          // Fill with random data.
-          for (let i = 0; i < data.length; i++) {
-            data[i] = i % 128;
-          }
-          desiredBuffer = 6 * data.length;
-        }
+
+      if (data.length < maxMessageSize && data.length < (total - bufferedAmount) / 16) {
+        data = new Uint8Array(data.length * 2);
+      }
+
+      if (sock.bufferedAmount < desiredBuffer) {
         sock.send(data);
-        t = now();
-        total += data.length;
-        bufferedAmount = sock.bufferedAmount
+        total += data.length
       }
   
       if (t >= previous + clientMeasurementInterval) {
